@@ -40,32 +40,51 @@ d)
 ### 3
 
 a)
-set with n distinct elements
-n = 2^k for k > 0
+
 
 ```py
 def randperm(S):
-    X_1 = {}
-    X_2 = {}
     if p > 0:
         X_1 = A(S)
-        X_1 = randperm(X_1)
         for i in S:
             if i not in X_1:
                 X_2.append(i)
-        X_2 = randperm(X_1)
-        return X_1X_2
-    if p = 0:
+        randperm(X_1)
+        randperm(X_2)
+        return X_1 ++ X_2
+    if p == 0:
         return S[0]
-    else:
-        return error
 ```
 
 
-b)
+b)  
+First we need a base case, suppose the scenario for **k = 1**    
+This means the size of S will be 2^1, so p = 1.  
+When we enter RANDPERM the algorithm will recognize p > 0, because p = 1.  
+It will call A on the given set S and generate a random subset X_1 of size 2^p-1, in this case 2^0, which will give us a subset X_1 with 1 element. X_2 will be the remaining element, that is not in X_1.  
+X_1 and X_2 will be returned with 1 element in each. Example input could be {a,b} with outcome {b, a} where b is the random permutation X_1 of S, and a is the random permutation X_2 of S.  
+
+Now we assume the same for k = **k+1.**  
+The size of S is 2^k, so p = **k.**  
+RANDPERM will again recognize p > 0, because p = k  
+A will give us a random subset X_1 of S of size 2^k-1, and X_2 will be the remaining elements in S, that are not in X_1.
+Finally we will return subset X_1 and X_2, both of size 2^k-1.
+
+Should the size of the set S be 1, it will mean that we have a set size of 2^0, because 2^0 = 1, which means we will return the only element in the set, because p = k = 0.
+
+We will assume that the algorithm works correctly for all k > 0.
 
 
-c)
+
+c)  
+If we were to implement A, we would simply pick r random elements from a set S. However, each time we pick an element, we would have to make sure, that the newly picked element, has not already been picked, else we would end up with duplicates in the returned subset. Elements are appended to the new subset as they are picked, given that they are of course not picked already.  
+We should keep some kind of tracker, very suitingly r, which should be decremented everytime we append an element.     
+The process of picking the elements could be done in a while loop, which would not break until r = 0.
+Once r elements have been picked with no duplicates, we will check if the subset of the currently r picked elements has length S/2.  
+The reason why A will always return a subset of size S/2, is because we suppose that A always takes sets containing 2r elements. So, if we pick r elements, A will return **S/2 = r elements**, because S/2 is always the value of r.
+
+As an example, suppose we have S = {"a","b","c","d","e","f"}. The size of S = 6 = 2*3, which means that r = 3. A will randomly pick 3 elements one by one, as long as r > 0 and decrement the value of r by 1, each time it appends an element to the subset we wish to generate. First it picks "c", checks if "c" is already in the subset, and appends. Then it could pick "d", and then "a". The loop will break, because r = 0, giving us the subset subsetS = {"c","d","a"} and we return. Should we instead of "d" have picked "c" again, the algorithm would not decrement r, and instead pick a new element from S, and repeat.
+We will not care about inputs with uneven amounts of elements, but we could throw some kind of exception, if this would be the case.
 
 
 
