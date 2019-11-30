@@ -20,10 +20,11 @@ Let R be a random variable that indicates number of trials until success.
 ### 2
 
 a)
+13.4 om MAX 3-SAT
 
 
 b)
-
+Further analysis .. 13.15
 
 c)
 
@@ -73,16 +74,17 @@ c)
 
 ### 4
 
-a)
+a)  
 Each ball has 1/m chance of ending up in any given box, and the probability wont change based on the outcome of the other balls.
 The expected number of balls in a fixed box i is
-```n*(1/m)``` = ```n/m```
+```n*(1/m)``` = ```n/m``` = ```m^2/m``` = ```m```
 
 
 
 b)
 V(X) = E(X^2) - (n/m)^2
-V(X) =
+V(X) =  
+https://www.slader.com/textbook/9781259676512-discrete-mathematics-and-its-applications-8th-edition/519/exercises/38/#
 
 
 c)
